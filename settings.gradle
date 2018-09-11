@@ -1,0 +1,5 @@
+rootProject.name = 'family-connect-service'
+
+includeBuild 'family-connect-api'
+includeBuild 'family-connect-impl'
+includeBuild 'family-connect-rest'
