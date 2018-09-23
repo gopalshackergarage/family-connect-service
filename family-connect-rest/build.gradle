@@ -22,11 +22,17 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
 
 dependencies {
+    compile('com.gakshintala.mylabspace:family-connect-impl:1.0-SNAPSHOT')
     compile('org.springframework.boot:spring-boot-starter-hateoas')
     compile('org.springframework.boot:spring-boot-starter-jooq')
     compile('org.springframework.boot:spring-boot-starter-web')
     compileOnly('org.projectlombok:lombok:+')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:+'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

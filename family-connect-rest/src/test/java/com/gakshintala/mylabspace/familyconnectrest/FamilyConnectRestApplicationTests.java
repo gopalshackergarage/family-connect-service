@@ -1,16 +1,28 @@
 package com.gakshintala.mylabspace.familyconnectrest;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class FamilyConnectRestApplicationTests {
+import com.gakshintala.mylabspace.familyconnectrest.api.RestApiController;
+import config.Config;
+import core.FamilyGraph;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-	@Test
-	public void contextLoads() {
-	}
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {RestApiController.class, Config.class})
+class FamilyConnectRestApplicationTests {
+
+    @Autowired   
+    private RestApiController restApiController;
+
+    @Test
+    void contextLoads() {
+        Assertions.assertNotNull(restApiController);
+        Assertions.assertNotNull(restApiController.getFamily());
+        Assertions.assertNotNull(((FamilyGraph)restApiController.getFamily()).getValidator());
+    }
 
 }

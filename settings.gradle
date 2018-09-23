@@ -1,5 +1,6 @@
 rootProject.name = 'family-connect-service'
 
+// includeBuild here should take care of knitting all projects together as composite builds, all the combinations
 includeBuild 'family-connect-api'
 includeBuild 'family-connect-impl'
 includeBuild 'family-connect-rest'

@@ -1,6 +1,6 @@
 package entities;
 
-import coreGraph.FamilyGraph;
+import core.Family;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
@@ -47,7 +47,7 @@ public final class ConnectionEdge {
      * @param relationLevel
      * @param family
      */
-    public ConnectionEdge(String fromPid, String relation, String toPid, int relationLevel, FamilyGraph family) {
+    public ConnectionEdge(String fromPid, String relation, String toPid, int relationLevel, Family family) {
         this(family.getPersonById(fromPid), parseToGenericRelation(relation), family.getPersonById(toPid),
                 relationLevel);
     }

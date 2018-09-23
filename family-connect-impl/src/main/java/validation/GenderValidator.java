@@ -1,6 +1,6 @@
 package validation;
 
-import coreGraph.FamilyGraph;
+import core.Family;
 import entities.Person;
 import relationship.GenericRelation;
 import relationship.SpecificRelation;
@@ -17,7 +17,7 @@ public class GenderValidator implements Validator {
     }
 
     @Override
-    public boolean validate(Person p1, GenericRelation genericRelation, Person p2, int relationLevel, FamilyGraph family) {
+    public boolean validate(Person p1, GenericRelation genericRelation, Person p2, int relationLevel, Family family) {
         boolean isValid;
         switch (genericRelation) {
             case SPOUSE:
@@ -31,7 +31,7 @@ public class GenderValidator implements Validator {
     }
 
     @Override
-    public boolean validate(Person p1, SpecificRelation specificRelation, Person p2, int relationLevel, FamilyGraph family) {
+    public boolean validate(Person p1, SpecificRelation specificRelation, Person p2, int relationLevel, Family family) {
         boolean isValid = (specificRelation.isRelationMale() == p1.isGenderMale());
 
         switch (specificRelation) {

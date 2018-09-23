@@ -1,9 +1,12 @@
-package coreGraph;
+package core;
 
 import entities.ConnectionEdge;
 import entities.Person;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import relationship.GenericRelation;
 import relationship.Relation;
 import relationship.SpecificRelation;
@@ -18,12 +21,14 @@ import static utils.RelationUtils.parseToGenericRelation;
 /**
  * This is the central Data Structure that holds all the Persons in the family and their corresponding connections.
  */
+@Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class FamilyGraph {
-    private final Map<String, Person> mPersonIdMap = new HashMap<>(); // Represents all the persons put into the graph.
-    private final Map<Person, Set<ConnectionEdge>> mRelationMap = new HashMap<>();
+public class FamilyGraph implements Family {
+    private final Map<String, Person> personIdMap = new HashMap<>(); // Represents all the persons put into the graph.
+    private final Map<Person, Set<ConnectionEdge>> relationMap = new HashMap<>();
     @NonNull
-    private final Validator mValidator;
+    @Getter
+    private final Validator validator;
 
     /**
      * Returns all the neighbour direct relations of a persons
@@ -32,7 +37,7 @@ public class FamilyGraph {
      * @return neighbours of the person
      */
     public Set<ConnectionEdge> getAllNeighbourConnections(Person person) {
-        return mRelationMap.get(person);
+        return relationMap.get(person);
     }
 
     /**
@@ -41,9 +46,9 @@ public class FamilyGraph {
      * @param person Person to add
      */
     public void addPerson(Person person) {
-        if (!mRelationMap.containsKey(person)) {
-            mPersonIdMap.put(person.getId(), person);
-            mRelationMap.put(person, new HashSet<>());
+        if (!relationMap.containsKey(person)) {
+            personIdMap.put(person.getId(), person);
+            relationMap.put(person, new HashSet<>());
         }
     }
 
@@ -66,9 +71,10 @@ public class FamilyGraph {
      * @param relation Relation between Persons as String
      * @param p2Id     To Person Id
      */
+    @Override
     public void connectPersons(String p1Id, String relation, String p2Id) {
-        var p1 = mPersonIdMap.get(p1Id);
-        var p2 = mPersonIdMap.get(p2Id);
+        var p1 = personIdMap.get(p1Id);
+        var p2 = personIdMap.get(p2Id);
         // If we are given only ID, we can't create a person object without other attributes, so we check his existence 
         // instead of adding him to family if he is new.
         if (p1 == null) {
@@ -86,28 +92,28 @@ public class FamilyGraph {
     /**
      * Connects two persons in the family with Generic relation
      *
-     * @param p1               From Person
+     * @param p1              From Person
      * @param GenericRelation Generic Relation between Persons
-     * @param p2               To Person
-     * @param doValidate       Switch to turn validation on or off
+     * @param p2              To Person
+     * @param doValidate      Switch to turn validation on or off
      */
-    private void connectPersons(Person p1, GenericRelation GenericRelation, Person p2, int relationLevel, boolean
+    public void connectPersons(Person p1, GenericRelation GenericRelation, Person p2, int relationLevel, boolean
             doValidate) {
         addPerson(p1);
         addPerson(p2);
-        if (doValidate && !mValidator.validate(p1, GenericRelation, p2, relationLevel, this)) {
+        if (doValidate && !validator.validate(p1, GenericRelation, p2, relationLevel, this)) {
             throw new IllegalArgumentException(new ConnectionEdge(p1, GenericRelation, p2) + " is NOT a valid Relation");
         }
-        mRelationMap.get(p1).add(new ConnectionEdge(p1, GenericRelation, p2, relationLevel));
-        mRelationMap.get(p2).add(new ConnectionEdge(p2, GenericRelation.getReverseRelation(), p1, -relationLevel));
+        relationMap.get(p1).add(new ConnectionEdge(p1, GenericRelation, p2, relationLevel));
+        relationMap.get(p2).add(new ConnectionEdge(p2, GenericRelation.getReverseRelation(), p1, -relationLevel));
     }
 
     /**
      * Connects two persons in the family with Specific relation
      *
-     * @param p1                From Person Id
+     * @param p1               From Person Id
      * @param SpecificRelation Specific Relation between Persons
-     * @param p2                To Person Id
+     * @param p2               To Person Id
      */
     public void connectPersons(Person p1, SpecificRelation SpecificRelation, Person p2, int relationLevel, boolean
             doValidate) {
@@ -170,8 +176,9 @@ public class FamilyGraph {
      * @param pId Id of person
      * @return Person with Id
      */
+    @Override
     public Person getPersonById(String pId) {
-        Person person = mPersonIdMap.get(pId);
+        Person person = personIdMap.get(pId);
         if (person == null) {
             throw new IllegalArgumentException("Person Id: " + pId + " NOT present in family");
         }
@@ -184,7 +191,7 @@ public class FamilyGraph {
      * @return Collection of all persons in family
      */
     public Collection<Person> getAllPersonsInFamily() {
-        return mPersonIdMap.values();
+        return personIdMap.values();
     }
 
     /**
@@ -226,10 +233,10 @@ public class FamilyGraph {
      */
     private ConnectionEdge bfsTraverseFamilyGraph(Person p1, Person p2, Set<ConnectionEdge> connectionsToPopulate,
                                                   boolean makeNewConnectionsFoundDuringSearch) {
-        if (p1 == null || mPersonIdMap.get(p1.getId()) == null) {
+        if (p1 == null || personIdMap.get(p1.getId()) == null) {
             throw new IllegalArgumentException("Person " + p1 + " not found in family");
         }
-        if (p2 != null && mPersonIdMap.get(p2.getId()) == null) {
+        if (p2 != null && personIdMap.get(p2.getId()) == null) {
             throw new IllegalArgumentException("Person " + p2 + " not found in family");
         }
 
@@ -289,10 +296,10 @@ public class FamilyGraph {
      * @return Path map.
      */
     private Map<Person, ConnectionEdge> getConnectionPath(Person p1, Person p2) {
-        if (p1 == null || mPersonIdMap.get(p1.getId()) == null) {
+        if (p1 == null || personIdMap.get(p1.getId()) == null) {
             throw new IllegalArgumentException("Person " + p1 + " not found in family");
         }
-        if (p2 == null || mPersonIdMap.get(p2.getId()) == null) {
+        if (p2 == null || personIdMap.get(p2.getId()) == null) {
             throw new IllegalArgumentException("Person " + p2 + " not found in family");
         }
         var connectionPathMap = new HashMap<Person, ConnectionEdge>();
@@ -375,7 +382,7 @@ public class FamilyGraph {
             if (p1.getAge() == p2.getAge()) return 0;
             return (p1.getAge() > p2.getAge()) ? 1 : -1;
         };
-        var sortedPersons = new ArrayList(mPersonIdMap.values());
+        var sortedPersons = new ArrayList(personIdMap.values());
         if (isOrderAscending) {
             sortedPersons.sort(ascendingAgeComparator);
         } else {
@@ -385,7 +392,7 @@ public class FamilyGraph {
     }
 
     public Collection<Person> getAllFamilyMembersOfGender(Boolean isMale) {
-        return filterPersonsByGender(isMale, new ArrayList<>(mPersonIdMap.values()));
+        return filterPersonsByGender(isMale, new ArrayList<>(personIdMap.values()));
     }
 
     public Collection<Person> getAllPersonsByRelation(Person person, Relation relation, int relationLevel) {

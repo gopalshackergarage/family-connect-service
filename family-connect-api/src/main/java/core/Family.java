@@ -1,10 +1,10 @@
-package coreGraph;
+package core;
 
 import entities.ConnectionEdge;
 import entities.Person;
 import relationship.GenericRelation;
 
-public interface FamilyGraph {
+public interface Family {
     /**
      * Connects two persons in family, this method wrote to ease unit testing
      *
