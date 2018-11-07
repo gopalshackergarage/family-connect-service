@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import relationship.GenericRelation;
 import relationship.Relation;
 import relationship.SpecificRelation;
@@ -21,7 +20,6 @@ import static utils.RelationUtils.parseToGenericRelation;
 /**
  * This is the central Data Structure that holds all the Persons in the family and their corresponding connections.
  */
-@Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FamilyGraph implements Family {
     private final Map<String, Person> personIdMap = new HashMap<>(); // Represents all the persons put into the graph.
