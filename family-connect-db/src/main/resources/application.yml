@@ -1,0 +1,7 @@
+#Database Configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:7654/family
+    username: admin
+    password: admin
+

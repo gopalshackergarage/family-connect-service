@@ -101,3 +101,5 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+family-connect-db/src/test/resources/
+/family-connect-db/src/main/generated/
