@@ -4,15 +4,5 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="com.gakshintala.mylabspace.family-connect-api.main" target="1.10" />
-      <module name="com.gakshintala.mylabspace.family-connect-api.test" target="1.10" />
-      <module name="com.gakshintala.mylabspace.family-connect-db.main" target="1.8" />
-      <module name="com.gakshintala.mylabspace.family-connect-db.test" target="1.8" />
-      <module name="com.gakshintala.mylabspace.family-connect-impl.main" target="1.10" />
-      <module name="com.gakshintala.mylabspace.family-connect-impl.test" target="1.10" />
-      <module name="com.gakshintala.mylabspace.family-connect-rest.main" target="1.10" />
-      <module name="com.gakshintala.mylabspace.family-connect-rest.test" target="1.10" />
-    </bytecodeTargetLevel>
   </component>
 </project>

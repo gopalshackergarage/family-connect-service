@@ -47,7 +47,7 @@ jooq {
     family(sourceSets.main) {
         jdbc {
             driver = 'org.postgresql.Driver'
-            url = 'jdbc:postgresql://localhost:7654/family'
+            url = 'jdbc:postgresql://localhost:6666/family'
             user = 'admin'
             password = 'admin'
             schema = 'public'
@@ -78,7 +78,7 @@ jooq {
 
 
 flyway {
-    url = 'jdbc:postgresql://localhost:7654/family'
+    url = 'jdbc:postgresql://localhost:6666/family'
     user = 'admin'
     password = 'admin'
     schemas = ['public']

@@ -103,3 +103,5 @@ fabric.properties
 
 family-connect-db/src/test/resources/
 /family-connect-db/src/main/generated/
+/family-connect-db/build/
+
