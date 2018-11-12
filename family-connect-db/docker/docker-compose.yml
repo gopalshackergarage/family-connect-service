@@ -4,7 +4,7 @@ services:
   postgres-db:
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     image: family:v1
     ports:
       - "6666:5432"

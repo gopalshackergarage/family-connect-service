@@ -1,3 +1,3 @@
-FROM postgres:9.6
+FROM postgres:latest
 
 COPY ./docker-db-setup.sh /docker-entrypoint-initdb.d/

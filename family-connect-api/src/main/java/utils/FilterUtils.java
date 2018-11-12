@@ -1,7 +1,7 @@
 package utils;
 
 import entities.ConnectionEdge;
-import entities.Person;
+import entities.Member;
 import relationship.GenericRelation;
 
 import java.util.Collection;
@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
  * Utility class to store methods that filter
  */
 public interface FilterUtils {
-    static Collection<ConnectionEdge> filterConnectionsByGenerationLevel(Person person, int generationLevel,
+    static Collection<ConnectionEdge> filterConnectionsByGenerationLevel(Member member, int generationLevel,
                                                                          Collection<ConnectionEdge> allConnections) {
         return filter(allConnections, connection -> connection.relationLevel() == generationLevel);
     }
 
-    static Collection<Person> filterPersonsByGender(Boolean gender, Collection<Person> allPersons) {
-        return filter(allPersons, person -> person.isGenderMale() == gender);
+    static Collection<Member> filterPersonsByGender(Boolean gender, Collection<Member> allMembers) {
+        return filter(allMembers, person -> person.isGenderMale() == gender);
     }
 
     static Collection<ConnectionEdge> filterConnectionsBySpecificRelation(GenericRelation genericRelation,

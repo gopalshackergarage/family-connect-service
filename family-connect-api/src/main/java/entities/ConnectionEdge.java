@@ -20,21 +20,21 @@ import static utils.RelationUtils.parseToGenericRelation;
 public final class ConnectionEdge {
     @NonNull
     @Getter
-    private final Person from;
+    private final Member from;
     @NonNull
     @Getter
     private final GenericRelation relation;
     @NonNull
     @Getter
-    private final Person to;
+    private final Member to;
     @Getter
     private int relationLevel;
 
-    public ConnectionEdge(Person from, SpecificRelation relation, Person to) {
+    public ConnectionEdge(Member from, SpecificRelation relation, Member to) {
         this(from, relation.getGenericRelation(), to);
     }
 
-    public ConnectionEdge(Person from, GenericRelation relation, Person to) {
+    public ConnectionEdge(Member from, GenericRelation relation, Member to) {
         this(from, relation, to, relation.getRelationLevel());
     }
 

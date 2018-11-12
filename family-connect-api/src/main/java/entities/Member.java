@@ -7,10 +7,10 @@ import lombok.NonNull;
 import java.util.Objects;
 
 /**
- * Class to represent Person.
+ * Class to represent Member.
  */
 @AllArgsConstructor
-public final class Person {
+public final class Member {
     @NonNull
     @Getter
     private final String id;
@@ -22,17 +22,17 @@ public final class Person {
     @Getter
     private final boolean isGenderMale; // Male-true, Female-false
 
-    public Person(String id, String name, String age, String isGenderMale) {
+    public Member(String id, String name, String age, String isGenderMale) {
         this(id, name, Integer.parseInt(age), Boolean.parseBoolean(isGenderMale));
     }
 
     /* No setters written, to achieve Immutability */
 
-    public boolean areAllAttributesMatching(Person person) {
-        return this.id.equalsIgnoreCase(person.id)
-                && this.name.equalsIgnoreCase(person.name)
-                && this.age == person.age
-                && this.isGenderMale == person.isGenderMale;
+    public boolean areAllAttributesMatching(Member member) {
+        return this.id.equalsIgnoreCase(member.id)
+                && this.name.equalsIgnoreCase(member.name)
+                && this.age == member.age
+                && this.isGenderMale == member.isGenderMale;
     }
 
     @Override
@@ -42,8 +42,8 @@ public final class Person {
 
     @Override
     public boolean equals(Object obj) {
-        return (obj instanceof Person)
-                && ((Person) obj).id.equals(this.id);
+        return (obj instanceof Member)
+                && ((Member) obj).id.equals(this.id);
     }
 
     @Override

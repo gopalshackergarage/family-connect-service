@@ -2,7 +2,7 @@ package validation;
 
 import core.Family;
 import entities.ConnectionEdge;
-import entities.Person;
+import entities.Member;
 import relationship.GenericRelation;
 import relationship.SpecificRelation;
 
@@ -18,7 +18,7 @@ public class RelationshipValidator implements Validator {
     }
 
     @Override
-    public boolean validate(Person p1, GenericRelation genericRelation, Person p2, int relationLevel, Family family) {
+    public boolean validate(Member p1, GenericRelation genericRelation, Member p2, int relationLevel, Family family) {
         // It's Ok to compare generic relations as it has already passed the gender validation.
         ConnectionEdge possibleConnection = family.getConnection(p1, p2, false);
         boolean isValid;
@@ -46,7 +46,7 @@ public class RelationshipValidator implements Validator {
     }
 
     @Override
-    public boolean validate(Person p1, SpecificRelation specificRelation, Person p2, int relationLevel, Family family) {
+    public boolean validate(Member p1, SpecificRelation specificRelation, Member p2, int relationLevel, Family family) {
         return this.validate(p1, specificRelation.getGenericRelation(), p2, relationLevel, family);
     }
 }

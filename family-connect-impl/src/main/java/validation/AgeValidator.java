@@ -1,7 +1,7 @@
 package validation;
 
 import core.Family;
-import entities.Person;
+import entities.Member;
 import relationship.GenericRelation;
 import relationship.SpecificRelation;
 
@@ -17,7 +17,7 @@ public class AgeValidator implements Validator {
     }
 
     @Override
-    public boolean validate(Person p1, GenericRelation genericRelation, Person p2, int relationLevel, Family family) {
+    public boolean validate(Member p1, GenericRelation genericRelation, Member p2, int relationLevel, Family family) {
         boolean isValid;
         switch (genericRelation) {
             case PARENT:
@@ -38,7 +38,7 @@ public class AgeValidator implements Validator {
     }
 
     @Override
-    public boolean validate(Person p1, SpecificRelation specificRelation, Person p2, int relationLevel, Family family) {
+    public boolean validate(Member p1, SpecificRelation specificRelation, Member p2, int relationLevel, Family family) {
         return this.validate(p1, specificRelation.getGenericRelation(), p2, relationLevel, family);
     }
 }
