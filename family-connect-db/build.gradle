@@ -1,7 +1,7 @@
 plugins {
-    id 'org.springframework.boot' version '2.0.0.RELEASE'
-    id 'nu.studer.jooq' version '2.0.11'
-    id "org.flywaydb.flyway" version "5.2.1"
+    id 'org.springframework.boot' version "2.1.3.RELEASE"
+    id 'nu.studer.jooq' version "3.0.3"
+    id "org.flywaydb.flyway" version "6.0.0-beta"
     id 'java'
 }
 
@@ -17,18 +17,19 @@ repositories {
     mavenCentral()
 }
 
-ext['jooq.version'] = '3.9.6'
+ext['jooq.version'] = '3.11.10'
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-jooq')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
     compile('org.postgresql:postgresql:+')
-    jooqRuntime 'postgresql:postgresql:+'
+    jooqRuntime('postgresql:postgresql:+') // last time 11.1 was working
 }
 
 jooq {
-    version='3.9.6'
+    version='3.11.10'
+    edition = 'OSS'
     family(sourceSets.main) {
         jdbc {
             driver = 'org.postgresql.Driver'
@@ -38,12 +39,12 @@ jooq {
             schema = 'public'
         }
         generator {
-            name = 'org.jooq.util.DefaultGenerator'
+            name = 'org.jooq.codegen.DefaultGenerator'
             strategy {
-                name = 'org.jooq.util.DefaultGeneratorStrategy'
+                name = 'org.jooq.codegen.DefaultGeneratorStrategy'
             }
             database {
-                name = 'org.jooq.util.postgres.PostgresDatabase'
+                name = 'org.jooq.meta.postgres.PostgresDatabase'
                 inputSchema = 'public'
             }
             generate {

@@ -105,3 +105,13 @@ family-connect-db/src/test/resources/
 /family-connect-db/src/main/generated/
 /family-connect-db/build/
 
+/.idea/checkstyle-idea.xml
+.idea/modules/
+.idea/sonarlint/
+family-connect-api/build/classes/java/main/generated/
+family-connect-impl/build/classes/java/main/generated/
+family-connect-impl/build/classes/java/test/generated_tests/
+family-connect-rest/build/classes/java/main/generated/
+family-connect-rest/build/classes/java/test/generated_tests/
+
+.idea/sonarlint
