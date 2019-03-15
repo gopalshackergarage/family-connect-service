@@ -1,0 +1,11 @@
+POST http://localhost:8080/member/create
+Content-Type: application/json
+
+{    "name": "gopal",    "age": "28" }
+
+###
+
+GET http://localhost:9090/users?emailId=email
+Accept: application/json
+
+###

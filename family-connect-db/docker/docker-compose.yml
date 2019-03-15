@@ -5,6 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: family:v1
+    image: family
     ports:
       - "6666:5432"

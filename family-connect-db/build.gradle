@@ -22,13 +22,14 @@ ext['jooq.version'] = '3.11.10'
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-jooq')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-web')
 
-    compile('org.postgresql:postgresql:+')
-    jooqRuntime('postgresql:postgresql:+') // last time 11.1 was working
+    compile('org.postgresql:postgresql:42.2.5')
+    jooqRuntime('org.postgresql:postgresql:42.2.5')
 }
 
 jooq {
-    version='3.11.10'
+    version = '3.11.10'
     edition = 'OSS'
     family(sourceSets.main) {
         jdbc {
@@ -64,7 +65,7 @@ jooq {
 
 
 flyway {
-    url = 'jdbc:postgresql://localhost:6666/family'
+    url = 'jdbc:postgresql://localhost:6666/postgres'
     user = 'admin'
     password = 'admin'
     schemas = ['public']
